@@ -26,12 +26,12 @@ jobs:
       - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@v0.1.8
         with:
-          host: ${{ secrets.EC2_HOST }}  # This should be your EC2 public DNS or IP
-          username: ${{ secrets.EC2_USER }}  # This should be 'ubuntu'
-          key: ${{ secrets.EC2_KEY }}  # This should be the private key content
+          host: ${{ secrets.EC2_HOST }}  # Your EC2 public DNS: ec2-52-54-98-30.compute-1.amazonaws.com
+          username: ${{ secrets.EC2_USER }}  # Set to 'ubuntu'
+          key: ${{ secrets.EC2_KEY }}  # Set to the content of your test-cicd-deployment-kp.pem file
           port: 22
           script: |
-            cd /var/www/MyProject
+            cd ~/Git/project  # Update to your project directory
             git pull origin main
             source venv/bin/activate
             pip install -r requirements.txt
