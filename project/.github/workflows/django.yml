@@ -15,17 +15,17 @@ jobs:
 
     - name: Set up Python
       uses: actions/setup-python@v3
-      # No specific Python version is set; it will use the latest version by default
 
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip  # Upgrade pip to the latest version
         pip install django  # Install Django
+        echo "Installed Django successfully."  # Add an echo for debugging
 
     - name: Run Migrations
       run: |
-        python manage.py migrate  # Run database migrations
+        python manage.py migrate || { echo "Migration failed"; exit 1; }  # Run database migrations and handle failure
 
     - name: Run Tests
       run: |
-        python manage.py test  # Run Django tests
+        python manage.py test || { echo "Tests failed"; exit 1; }  # Run Django tests and handle failure
