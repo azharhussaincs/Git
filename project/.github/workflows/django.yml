@@ -11,13 +11,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v4  # Check out the code from your repository
+
     - name: Set up Python
       uses: actions/setup-python@v3
-    - name: Install Django
+      # No specific Python version is set; it will use the latest version by default
+
+    - name: Install Dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install django
+        python -m pip install --upgrade pip  # Upgrade pip to the latest version
+        pip install django  # Install Django
+
+    - name: Run Migrations
+      run: |
+        python manage.py migrate  # Run database migrations
+
     - name: Run Tests
       run: |
-        python manage.py test
+        python manage.py test  # Run Django tests
